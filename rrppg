@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import colors as c
 
 # Creates dungeon
 
@@ -13,4 +14,64 @@ dungeon[0][0] = 1
 px = 0
 py = 0
 ptile = dungeon[px][py]
-print(ptile)
+
+print(c.clear)
+
+print("You find yourself in a dark dungeon.")
+print("You think you should try to find a way out.")
+
+while True:
+    
+    # Choosing a direction
+    
+    print("In which direction would you like to move?  (Enter n, s, e, or w).")
+    direction = input("> ")
+    print(c.clear)
+
+    # North
+
+    if direction == "n":
+        px += 1
+        print("You move north one tile.")
+        if px > 4:
+            print("You run into a wall.")
+            px -= 1
+        else:
+            ptile = dungeon[px][py]
+    
+    # South
+
+    elif direction == "s":
+        px -= 1
+        print("You move south one tile.")
+        if px < -5:
+            print("You run into a wall.")
+            px += 1
+        else:
+            ptile = dungeon[px][py]
+    
+    # East
+
+    elif direction == "e":
+        py += 1
+        print("You move east one tile.")
+        if py > 4:
+            print("You run into a wall.")
+            py -= 1
+        else:
+            ptile = dungeon[px][py]    
+    
+    # West
+
+    elif direction == "w":
+        py -= 1
+        print("You move west one tile.")
+        if py < -5:
+            print("You run into a wall.")
+        else:
+            ptile = dungeon[px][py]
+    
+    # Invalid command
+
+    else:
+        print("That is not a valid command.")
