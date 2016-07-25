@@ -1,0 +1,6 @@
+#!/usr/bin/env python3
+
+# Creates dungeon
+
+w = 5
+h = 5
