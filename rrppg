@@ -4,7 +4,13 @@
 
 w = 5
 h = 5
+
 dungeon = [[0 for x in range(w)]for y in range (h)]
 dungeon[0][0] = 1
 
-print(dungeon[0][0])
+# Places player
+
+px = 0
+py = 0
+ptile = dungeon[px][py]
+print(ptile)
