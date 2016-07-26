@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import colors as c
+import random
 
 # Creates dungeon
 
@@ -7,7 +8,19 @@ w = 5
 h = 5
 
 dungeon = [[0 for x in range(w)]for y in range (h)]
-dungeon[0][0] = 1
+
+# Randomizes dungeon
+
+x = 4
+y = 4
+
+while x > -6:
+    while y > -6:
+        dungeon[x][y] = random.randrange(0,3)
+        y -= 1
+    x -= 1
+    y = 4
+
 
 # Places player
 
@@ -28,50 +41,76 @@ while True:
     direction = input("> ")
     print(c.clear)
 
-    # North
+    # East
 
-    if direction == "n":
+    if direction == "e":
         px += 1
-        print("You move north one tile.")
+        print("You move east one tile.")
         if px > 4:
             print("You run into a wall.")
             px -= 1
         else:
             ptile = dungeon[px][py]
+            if ptile == 1:
+                print("You run into a wall.")
+                px -= 1
+                ptile = dungeon[px][py]
     
-    # South
+    # West
 
-    elif direction == "s":
+    elif direction == "w":
         px -= 1
-        print("You move south one tile.")
+        print("You move west one tile.")
         if px < -5:
             print("You run into a wall.")
             px += 1
         else:
             ptile = dungeon[px][py]
+            if ptile == 1:
+                print("You run into a wall.")
+                px += 1
+                ptile = dungeon[px][py]
     
-    # East
+    # North
 
-    elif direction == "e":
+    elif direction == "n":
         py += 1
-        print("You move east one tile.")
+        print("You move north one tile.")
         if py > 4:
             print("You run into a wall.")
             py -= 1
         else:
-            ptile = dungeon[px][py]    
+            ptile = dungeon[px][py] 
+            if ptile == 1:
+                print("You run into a wall.")
+                py -= 1
+                ptile = dungeon[px][py]
     
-    # West
+    # South
 
-    elif direction == "w":
+    elif direction == "s":
         py -= 1
-        print("You move west one tile.")
+        print("You move south one tile.")
         if py < -5:
             print("You run into a wall.")
+            py += 1
         else:
             ptile = dungeon[px][py]
+            if ptile == 1:
+                print("You run into a wall.")
+                py += 1
+                ptile = dungeon[px][py]
     
     # Invalid command
 
     else:
         print("That is not a valid command.")
+
+    # Exit
+    
+    if ptile == 2:
+        print("You find a staircase.")
+        print("You ascend the staircase and exit the dungeon.")
+        print("A WINNER IS YOU!")
+        break
+
