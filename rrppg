@@ -2,6 +2,18 @@
 import colors as c
 import random
 
+# Player's stats
+
+p_health = 100
+p_offense = 15
+p_defense = 0
+
+# Enemies' stats
+
+e_health = 10
+e_offense = 10
+e_defense = 5
+
 # Creates dungeon
 
 w = 5
@@ -16,11 +28,16 @@ y = 4
 
 while x > -6:
     while y > -6:
-        dungeon[x][y] = random.randrange(0,3)
+        dungeon[x][y] = random.randrange(0,2)
         y -= 1
     x -= 1
     y = 4
 
+# Places staircase
+
+exit_x = random.randrange(-5,5)
+exit_y = random.randrange(-5,5)
+dungeon[exit_x][exit_y] = 2
 
 # Places player
 
@@ -45,61 +62,65 @@ while True:
 
     if direction == "e":
         px += 1
-        print("You move east one tile.")
         if px > 4:
-            print("You run into a wall.")
+            print("You try to move east, but run into a wall.")
             px -= 1
         else:
             ptile = dungeon[px][py]
             if ptile == 1:
-                print("You run into a wall.")
+                print("You try to move east, but run into a wall.")
                 px -= 1
                 ptile = dungeon[px][py]
+            else:
+                print("You move east one tile.")
     
     # West
 
     elif direction == "w":
         px -= 1
-        print("You move west one tile.")
         if px < -5:
-            print("You run into a wall.")
+            print("You try to move west, but run into a wall.")
             px += 1
         else:
             ptile = dungeon[px][py]
             if ptile == 1:
-                print("You run into a wall.")
+                print("You try to move west, but run into a wall.")
                 px += 1
                 ptile = dungeon[px][py]
+            else:
+                print("You move west one tile.")
     
     # North
 
     elif direction == "n":
         py += 1
-        print("You move north one tile.")
         if py > 4:
-            print("You run into a wall.")
+            print("You try to move north, but run into a wall.")
             py -= 1
         else:
             ptile = dungeon[px][py] 
             if ptile == 1:
-                print("You run into a wall.")
+                print("You try to move north, but run into a wall.")
                 py -= 1
                 ptile = dungeon[px][py]
+            else:
+                print("You move north one tile.")
     
     # South
 
     elif direction == "s":
         py -= 1
-        print("You move south one tile.")
         if py < -5:
-            print("You run into a wall.")
+            print("You try to move south, but run into a wall.")
             py += 1
         else:
             ptile = dungeon[px][py]
             if ptile == 1:
-                print("You run into a wall.")
+                print("You try to move south, but run into a wall.")
                 py += 1
                 ptile = dungeon[px][py]
+            else:
+                print("You move south one tile.")
     
     # Invalid command
 
@@ -114,3 +135,52 @@ while True:
         print("A WINNER IS YOU!")
         break
 
+    # Battle
+    
+    battle_chance = random.randrange(0,11)
+    if battle_chance == 10:
+        print("You encounter a Slime!")
+        while True:
+            print("Health: " + str(p_health))
+            print("Offense: " + str(p_offense))
+            print("Defense: " + str(p_defense))
+            print("What will you do?")
+            print("1: Fight")
+            print("2: Run")
+            command = input("> ")
+            print(c.clear)
+            
+            # Fight
+
+            if command == "1":
+                p_damage = p_offense - e_defense
+                e_health -= p_damage
+                print("You attack the Slime!")
+                print("The Slime takes " + str(p_damage) + " damage!") 
+                e_damage = e_offense - p_defense
+                p_health -= e_damage
+                print("The Slime attacks you!")
+                print("You take " + str(e_damage) + " damage!")
+                if p_health <= 0:
+                    print("You died!")
+                    print("GAME OVER")
+                    break
+                elif e_health <= 0:
+                    print("The Slime was defeated!")
+                    print("You won the battle!")
+                    break
+            
+            # Run
+
+            elif command == "2":
+                pass
+            
+            # Invalid command
+
+            else:
+                print("That is not a valid command.")
+
+    # Game Over
+
+    if p_health <= 0:
+        break
