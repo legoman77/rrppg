@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import colors as c
 import random
+import battle
 
 # Player's stats
 
@@ -81,6 +82,9 @@ while True:
                 ptile = dungeon[px][py]
             else:
                 print("You move east one tile.")
+                battle_chance = random.randrange(0,11)
+                if battle_chance == 10:
+                    battle()
     
     # West
 
