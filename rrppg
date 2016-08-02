@@ -10,7 +10,7 @@ p_defense = 0
 
 # Enemies' stats
 
-e_health = 10
+e_health = 20
 e_offense = 10
 e_defense = 5
 
@@ -21,7 +21,7 @@ h = 5
 
 dungeon = [[0 for x in range(w)]for y in range (h)]
 
-# Randomizes dungeon
+# Generates dungeon
 
 x = 4
 y = 4
@@ -33,11 +33,19 @@ while x > -6:
     x -= 1
     y = 4
 
+dungeon[0][0] = 0
+
 # Places staircase
 
-exit_x = random.randrange(-5,5)
-exit_y = random.randrange(-5,5)
-dungeon[exit_x][exit_y] = 2
+while True:
+    exit_x = random.randrange(-5,5)
+    exit_y = random.randrange(-5,5)
+    if exit_x == 0 and exit_y == 0:
+        pass
+    else:
+        dungeon[exit_x][exit_y] = 2    
+        break
+
 
 # Places player
 
