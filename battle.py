@@ -1,16 +1,5 @@
 def battle(p_health, p_offense, p_defense, e_health, e_offense, e_defense):
-    
-    # Player's stats
-    p_health = 100
-    p_offense = 15
-    p_defense = 0
-    
-    # Enemies' stats
-    
-    e_health = 20
-    e_offense = 10
-    e_defense = 5
-    
+
     # Battle
     
     print("You encounter a Slime!")
