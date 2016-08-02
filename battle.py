@@ -1,4 +1,5 @@
-def battle() :
+def battle():
+    
     # Player's stats
     
     p_health = 100
