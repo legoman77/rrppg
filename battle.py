@@ -1,3 +1,5 @@
+import colors as c
+
 def battle(p_health, p_offense, p_defense, e_health, e_offense, e_defense):
 
     # Battle
