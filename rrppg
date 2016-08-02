@@ -3,6 +3,18 @@ import colors as c
 import random
 import battle
 
+# Player's stats
+
+p_health = 100
+p_offense = 15
+p_defense = 0
+    
+# Enemies' stats
+    
+e_health = 20
+e_offense = 10
+e_defense = 5
+
 # Creates dungeon
 
 w = 5
@@ -72,7 +84,7 @@ while True:
                 print("You move east one tile.")
                 battle_chance = random.randrange(0,11)
                 if battle_chance == 10:
-                    battle.battle()
+                    battle.battle(p_health, p_offense, p_defense, e_health, e_offense, e_defense)
     
     # West
 
@@ -91,7 +103,7 @@ while True:
                 print("You move west one tile.")
                 battle_chance = random.randrange(0,11)
                 if battle_chance == 10:
-                    battle.battle()
+                    battle.battle(p_health, p_offense, p_defense, e_health, e_offense, e_defense)
     
     # North
 
@@ -110,7 +122,7 @@ while True:
                 print("You move north one tile.")
                 battle_chance = random.randrange(0,11)
                 if battle_chance == 10:
-                    battle.battle()
+                    battle.battle(p_health, p_offense, p_defense, e_health, e_offense, e_defense)
     
     # South
 
@@ -129,7 +141,7 @@ while True:
                 print("You move south one tile.")
                 battle_chance = random.randrange(0,11)
                 if battle_chance == 10:
-                    battle.battle()
+                       battle.battle(p_health, p_offense, p_defense, e_health, e_offense, e_defense)
     
     # Invalid command
 
