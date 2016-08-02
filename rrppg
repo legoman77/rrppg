@@ -84,7 +84,7 @@ while True:
                 print("You move east one tile.")
                 battle_chance = random.randrange(0,11)
                 if battle_chance == 10:
-                    battle()
+                    battle.battle()
     
     # West
 
