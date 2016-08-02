@@ -1,7 +1,6 @@
-def battle():
+def battle(p_health, p_offense, p_defense, e_health, e_offense, e_defense):
     
     # Player's stats
-    
     p_health = 100
     p_offense = 15
     p_defense = 0
@@ -15,7 +14,7 @@ def battle():
     # Battle
     
     print("You encounter a Slime!")
-      while True:
+    while True:
         print("Health: " + str(p_health))
         print("Offense: " + str(p_offense))
         print("Defense: " + str(p_defense))
