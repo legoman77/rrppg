@@ -15,6 +15,10 @@ e_health = 20
 e_offense = 10
 e_defense = 5
 
+# Items
+
+potion_count = 0
+
 # Creates dungeon
 
 w = 5
@@ -29,7 +33,7 @@ y = 4
 
 while x > -6:
     while y > -6:
-        dungeon[x][y] = random.randrange(0,2)
+        dungeon[x][y] = random.randint(0,2)
         y -= 1
     x -= 1
     y = 4
@@ -44,7 +48,7 @@ while True:
     if exit_x == 0 and exit_y == 0:
         pass
     else:
-        dungeon[exit_x][exit_y] = 2    
+        dungeon[exit_x][exit_y] = 3 
         break
 
 
@@ -60,10 +64,12 @@ print("You find yourself in a dark dungeon.")
 print("You think you should try to find a way out.")
 
 while True:
-    
+
     # Choosing a direction
     
     print("In which direction would you like to move?  (Enter n, s, e, or w).")
+    print("Or, press p to use a potion.")
+    print("Potion count: " + str(potion_count))
     direction = input("> ")
     print(c.clear)
 
@@ -71,7 +77,7 @@ while True:
 
     if direction == "e":
         px += 1
-        if px > 4:
+        if px >= 3:
             print("You try to move east, but run into a wall.")
             px -= 1
         else:
@@ -79,7 +85,12 @@ while True:
             if ptile == 1:
                 print("You try to move east, but run into a wall.")
                 px -= 1
-                ptile = dungeon[px][py]
+            elif ptile == 2:
+                print("You move east one tile.")
+                print("You find a potion on the ground.")
+                print("You pick up the potion.")
+                potion_count += 1
+                dungeon[px][py] = 0
             else:
                 print("You move east one tile.")
     
@@ -87,7 +98,7 @@ while True:
 
     elif direction == "w":
         px -= 1
-        if px < -5:
+        if px <= -3:
             print("You try to move west, but run into a wall.")
             px += 1
         else:
@@ -95,7 +106,13 @@ while True:
             if ptile == 1:
                 print("You try to move west, but run into a wall.")
                 px += 1
-                ptile = dungeon[px][py]
+                ptile = dungeon[px][py] 
+            elif ptile == 2:
+                print("You move west one tile.")
+                print("You find a potion on the ground.")
+                print("You pick up the potion.")
+                potion_count += 1
+                dungeon[px][py] = 0
             else:
                 print("You move west one tile.")
     
@@ -103,7 +120,7 @@ while True:
 
     elif direction == "n":
         py += 1
-        if py > 4:
+        if py >= 3:
             print("You try to move north, but run into a wall.")
             py -= 1
         else:
@@ -112,6 +129,12 @@ while True:
                 print("You try to move north, but run into a wall.")
                 py -= 1
                 ptile = dungeon[px][py]
+            elif ptile == 2:
+                print("You move north one tile.")
+                print("You find a potion on the ground.")
+                print("You pick up the potion.")
+                potion_count += 1
+                dungeon[px][py] = 0
             else:
                 print("You move north one tile.")
 
@@ -119,7 +142,7 @@ while True:
 
     elif direction == "s":
         py -= 1
-        if py < -5:
+        if py <= -3:
             print("You try to move south, but run into a wall.")
             py += 1
         else:
@@ -128,9 +151,31 @@ while True:
                 print("You try to move south, but run into a wall.")
                 py += 1
                 ptile = dungeon[px][py]
+            elif ptile == 2:
+                print("You move south one tile.")
+                print("You find a potion on the ground.")
+                print("You pick up the potion.")
+                potion_count += 1
+                dungeon[px][py] = 0
             else:
                 print("You move south one tile.")
     
+    # Using a potion
+
+    elif direction =="p":
+        if potion_count > 0:
+            if p_health >= 100:
+                print("It won't have any effect.")
+            else:
+                p_health += 20
+                potion_count -= 1
+                if p_health > 100:
+                    p_health = 100
+                print("You drink the potion.")
+                print("20 HP restored!")
+        else:
+            print("You don't have any potions.")
+
     # Invalid command
 
     else:
@@ -154,27 +199,50 @@ while True:
             # Fight
         
             if command == "1":
-                p_damage = p_offense - e_defense
-                e_health -= p_damage
-                print("You attack the Slime!")
-                print("The Slime takes " + str(p_damage) + " damage!")
-                if e_health <= 0:
-                    print("The Slime was defeated!")
-                    print("You won the battle!")
-                    break
-                e_damage = e_offense - p_defense
-                p_health -= e_damage
-                print("The Slime attacks you!")
-                print("You take " + str(e_damage) + " damage!")
-                if p_health <= 0:
-                    print("You died!")
-                    print("GAME OVER")
-                    break
+                hit_chance = random.randint(0,10)
+                if hit_chance == 10:
+                    print("You missed!")
+                else:
+                    p_damage = p_offense - e_defense
+                    e_health -= p_damage
+                    print("You attack the Slime!")
+                    print("The Slime takes " + str(p_damage) + " damage!")
+                    if e_health <= 0:
+                        print("The Slime was defeated!")
+                        print("You won the battle!")
+                        e_health = 20
+                        break
+                
+                hit_chance = random.randint(0,10)
+                if hit_chance == 10:
+                    print("The Slime missed!")
+                else:
+                    e_damage = e_offense - p_defense
+                    p_health -= e_damage
+                    print("The Slime attacks you!")
+                    print("You take " + str(e_damage) + " damage!")
+                    if p_health <= 0:
+                        print("You died!")
+                        print("GAME OVER")
+                        break
                 
             # Run
     
             elif command == "2":
-                pass
+                run_chance = random.randrange(0,2)
+                if run_chance == 0:
+                    print("Escaped!")
+                    break
+                else:
+                    print("Couldn't escape!")
+                    e_damage = e_offense - p_defense
+                    p_health -= e_damage
+                    print("The Slime attacks you!")
+                    print("You take " + str(e_damage) + " damage!")
+                    if p_health <= 0:
+                        print("You died!")
+                        print("GAME OVER")
+                        break
                 
             # Invalid command
     
@@ -189,7 +257,7 @@ while True:
     
     # Exit
     
-    if ptile == 2:
+    if ptile == 3:
         print("You find a staircase.")
         print("You ascend the staircase and exit the dungeon.")
         print("A WINNER IS YOU!")
