@@ -69,6 +69,10 @@ while True:
     
     print("In which direction would you like to move?  (Enter n, s, e, or w).")
     print("Or, press p to use a potion.")
+    print("Your stats: ")
+    print("Health: " + str(p_health))
+    print("Offense: " + str(p_offense))
+    print("Defense: " + str(p_defense))
     print("Potion count: " + str(potion_count))
     direction = input("> ")
     print(c.clear)
@@ -190,9 +194,11 @@ while True:
             print("Health: " + str(p_health))
             print("Offense: " + str(p_offense))
             print("Defense: " + str(p_defense))
+            print("Potion count: " + str(potion_count))
             print("What will you do?")
             print("1: Fight")
-            print("2: Run")
+            print("2: Potion")
+            print("3: Run")
             command = input("> ")
             print(c.clear)
                     
@@ -225,10 +231,14 @@ while True:
                         print("You died!")
                         print("GAME OVER")
                         break
-                
+            
+            # Potion
+            
+            
+
             # Run
     
-            elif command == "2":
+            elif command == "3":
                 run_chance = random.randrange(0,2)
                 if run_chance == 0:
                     print("Escaped!")
