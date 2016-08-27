@@ -234,7 +234,27 @@ while True:
             
             # Potion
             
-            
+            elif command == "2":
+                if potion_count > 0:
+                    if p_health >= 100:
+                        print("It won't have any effect.")
+                    else:
+                        p_health += 20
+                        potion_count -= 1
+                        if p_health > 100:
+                            p_health = 100
+                        print("You drink the potion.")
+                        print("20 HP restored!")                
+                        e_damage = e_offense - p_defense
+                        p_health -= e_damage
+                        print("The Slime attacks you!")
+                        print("You take " + str(e_damage) + " damage!")
+                        if p_health <= 0:
+                            print("You died!")
+                            print("GAME OVER")
+                            break
+                else:
+                    print("You don't have any potions.")
 
             # Run
     
