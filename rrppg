@@ -33,7 +33,7 @@ dungeon = [[0 for x in range(w)]for y in range (h)]
 
 # Generates dungeon
 
-generate():
+def generate():
     
     x = 4
     y = 4
@@ -58,13 +58,13 @@ generate():
             dungeon[exit_x][exit_y] = 4 
             break
 
-    # Places player
-
-    px = 0
-    py = 0
-    ptile = dungeon[px][py]
-
 generate()
+
+# Places player
+
+px = 0
+py = 0
+ptile = dungeon[px][py]
 
 print(c.clear)
 
@@ -380,3 +380,7 @@ while True:
             break
         else:
             print("You ascend the staircase and enter the next floor of the dungeon.")
+            generate()
+            px = 0
+            py = 0
+            ptile = dungeon[px][py]
