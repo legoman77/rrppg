@@ -18,6 +18,7 @@ e_defense = 5
 # Items
 
 potion_count = 0
+b_count = 0
 
 # Creates dungeon
 
@@ -33,7 +34,7 @@ y = 4
 
 while x > -6:
     while y > -6:
-        dungeon[x][y] = random.randint(0,2)
+        dungeon[x][y] = random.randint(0,3)
         y -= 1
     x -= 1
     y = 4
@@ -48,7 +49,7 @@ while True:
     if exit_x == 0 and exit_y == 0:
         pass
     else:
-        dungeon[exit_x][exit_y] = 3 
+        dungeon[exit_x][exit_y] = 4 
         break
 
 
@@ -73,7 +74,8 @@ while True:
     print("Health: " + str(p_health))
     print("Offense: " + str(p_offense))
     print("Defense: " + str(p_defense))
-    print("Potion count: " + str(potion_count))
+    print("Potions: " + str(potion_count))
+    print("Bombs: " + str(b_count))
     direction = input("> ")
     print(c.clear)
 
@@ -82,18 +84,36 @@ while True:
     if direction == "e":
         px += 1
         if px >= 3:
-            print("You try to move east, but run into a wall.")
+            print("You try to move east, but run into the dungeon boundary.")
             px -= 1
         else:
             ptile = dungeon[px][py]
             if ptile == 1:
                 print("You try to move east, but run into a wall.")
+                print("Would you like to destroy the wall with a bomb?")
+                print("(Press 1 to use a bomb, or do anything else to not use one.)")
+                print("Bombs: " + str(b_count))
+                if b_count == 0:
+                    print("You don't have any bombs!")
+                else:
+                    b_choice = input("> ")
+                    print(c.clear)
+                    if b_choice == "1":
+                        b_count -= 1
+                        dungeon[px][py] = 0
+                        print("You set off a bomb, destroying the wall.")
                 px -= 1
             elif ptile == 2:
                 print("You move east one tile.")
                 print("You find a potion on the ground.")
                 print("You pick up the potion.")
                 potion_count += 1
+                dungeon[px][py] = 0
+            elif ptile == 3:
+                print("You move east one tile.")
+                print("You find a bomb on the ground.")
+                print("You pick up the bomb.")
+                b_count += 1
                 dungeon[px][py] = 0
             else:
                 print("You move east one tile.")
@@ -103,12 +123,24 @@ while True:
     elif direction == "w":
         px -= 1
         if px <= -3:
-            print("You try to move west, but run into a wall.")
+            print("You try to move west, but run into the dungeon boundary.")
             px += 1
         else:
             ptile = dungeon[px][py]
             if ptile == 1:
-                print("You try to move west, but run into a wall.")
+                print("You try to move west, but run into a wall.") 
+                print("Would you like to destroy the wall with a bomb?")
+                print("(Press 1 to use a bomb, or press 2 to not use one.)")
+                print("Bombs: " + str(b_count))
+                if b_count == 0:
+                    print("You don't have any bombs!")
+                else:
+                    b_choice = input("> ")
+                    print(c.clear)
+                    if b_choice == "1":
+                        b_count -= 1
+                        dungeon[px][py] = 0
+                        print("You set off a bomb, destroying the wall.")
                 px += 1
                 ptile = dungeon[px][py] 
             elif ptile == 2:
@@ -116,6 +148,12 @@ while True:
                 print("You find a potion on the ground.")
                 print("You pick up the potion.")
                 potion_count += 1
+                dungeon[px][py] = 0 
+            elif ptile == 3:
+                print("You move west one tile.")
+                print("You find a bomb on the ground.")
+                print("You pick up the bomb.")
+                b_count += 1
                 dungeon[px][py] = 0
             else:
                 print("You move west one tile.")
@@ -125,14 +163,32 @@ while True:
     elif direction == "n":
         py += 1
         if py >= 3:
-            print("You try to move north, but run into a wall.")
+            print("You try to move north, but run into the dungeon boundary.")
             py -= 1
         else:
             ptile = dungeon[px][py] 
             if ptile == 1:
-                print("You try to move north, but run into a wall.")
+                print("You try to move north, but run into a wall.") 
+                print("Would you like to destroy the wall with a bomb?")
+                print("(Press 1 to use a bomb, or press 2 to not use one.)")
+                print("Bombs: " + str(b_count))
+                if b_count == 0:
+                    print("You don't have any bombs!")
+                else:
+                    b_choice = input("> ")
+                    print(c.clear)
+                    if b_choice == "1":
+                        b_count -= 1
+                        dungeon[px][py] = 0
+                        print("You set off a bomb, destroying the wall.")
                 py -= 1
-                ptile = dungeon[px][py]
+                ptile = dungeon[px][py] 
+            elif ptile == 3:
+                print("You move north one tile.")
+                print("You find a bomb on the ground.")
+                print("You pick up the bomb.")
+                b_count += 1
+                dungeon[px][py] = 0
             elif ptile == 2:
                 print("You move north one tile.")
                 print("You find a potion on the ground.")
@@ -147,12 +203,24 @@ while True:
     elif direction == "s":
         py -= 1
         if py <= -3:
-            print("You try to move south, but run into a wall.")
+            print("You try to move south, but run into the dungeon boundary.")
             py += 1
         else:
             ptile = dungeon[px][py]
             if ptile == 1:
                 print("You try to move south, but run into a wall.")
+                print("Would you like to destroy the wall with a bomb?")
+                print("(Press 1 to use a bomb, or press 2 to not use one.)")
+                print("Bombs: " + str(b_count))
+                if b_count == 0:
+                    print("You don't have any bombs!")
+                else:
+                    b_choice = input("> ")
+                    print(c.clear)
+                    if b_choice == "1":
+                        b_count -= 1
+                        dungeon[px][py] = 0
+                        print("You set off a bomb, destroying the wall.")
                 py += 1
                 ptile = dungeon[px][py]
             elif ptile == 2:
@@ -161,12 +229,18 @@ while True:
                 print("You pick up the potion.")
                 potion_count += 1
                 dungeon[px][py] = 0
+            elif ptile == 3:
+                print("You move south one tile.")
+                print("You find a bomb on the ground.")
+                print("You pick up the bomb.")
+                b_count += 1
+                dungeon[px][py] = 0
             else:
                 print("You move south one tile.")
     
     # Using a potion
 
-    elif direction =="p":
+    elif direction == "p":
         if potion_count > 0:
             if p_health >= 100:
                 print("It won't have any effect.")
@@ -216,6 +290,10 @@ while True:
                     if e_health <= 0:
                         print("The Slime was defeated!")
                         print("You won the battle!")
+                        b_chance = random.randint(1,10)
+                        if b_chance == 10:
+                            b_count += 1
+                            print("The Slime dropped a bomb!")
                         e_health = 20
                         break
                 
@@ -278,8 +356,7 @@ while True:
     
             else:
                 print("That is not a valid command.")
-
-    
+ 
     # Game Over
 
     if p_health <= 0:
@@ -287,7 +364,7 @@ while True:
     
     # Exit
     
-    if ptile == 3:
+    if ptile == 4:
         print("You find a staircase.")
         print("You ascend the staircase and exit the dungeon.")
         print("A WINNER IS YOU!")
