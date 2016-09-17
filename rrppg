@@ -2,6 +2,7 @@
 import colors as c
 import random
 import battle
+import getch
 
 # Player's stats
 
@@ -75,7 +76,7 @@ while True:
 
     # Choosing a direction
     
-    print("In which direction would you like to move?  (Enter n, s, e, or w).")
+    print("In which direction would you like to move?  (Use WASD).")
     print("Or, press p to use a potion.")
     print("Your stats: ")
     print("Health: " + str(p_health))
@@ -83,12 +84,12 @@ while True:
     print("Defense: " + str(p_defense))
     print("Potions: " + str(potion_count))
     print("Bombs: " + str(b_count))
-    direction = input("> ")
+    direction = getch.getch()
     print(c.clear)
 
     # East
 
-    if direction == "e":
+    if direction == "d":
         px += 1
         if px >= 3:
             print("You try to move east, but run into the dungeon boundary.")
@@ -98,7 +99,7 @@ while True:
             if ptile == 1:
                 print("You try to move east, but run into a wall.")
                 print("Would you like to destroy the wall with a bomb?")
-                print("(Press 1 to use a bomb, or do anything else to not use one.)")
+                print("(Press 1 to use a bomb, or press anything else to not use one.)")
                 print("Bombs: " + str(b_count))
                 if b_count == 0:
                     print("You don't have any bombs!")
@@ -112,12 +113,16 @@ while True:
                 px -= 1
             elif ptile == 2:
                 print("You move east one tile.")
-                print("You find a potion on the ground.")
-                print("You pick up the potion.")
-                potion_count += 1
+                pickup_chance = random.randint(1,5)
+                if pickup_chance == 5:
+                    print("You find a potion on the ground.")
+                    print("You pick up the potion.")
+                    potion_count += 1
                 dungeon[px][py] = 0
             elif ptile == 3:
                 print("You move east one tile.")
+                pickup_chance = random.randint(1,10)
+                # if pickup_chance == 10:
                 print("You find a bomb on the ground.")
                 print("You pick up the bomb.")
                 b_count += 1
@@ -127,7 +132,7 @@ while True:
     
     # West
 
-    elif direction == "w":
+    elif direction == "a":
         px -= 1
         if px <= -3:
             print("You try to move west, but run into the dungeon boundary.")
@@ -142,7 +147,7 @@ while True:
                 if b_count == 0:
                     print("You don't have any bombs!")
                 else:
-                    b_choice = input("> ")
+                    b_choice = getch.getch()
                     print(c.clear)
                     if b_choice == "1":
                         b_count -= 1
@@ -152,12 +157,16 @@ while True:
                 ptile = dungeon[px][py] 
             elif ptile == 2:
                 print("You move west one tile.")
-                print("You find a potion on the ground.")
-                print("You pick up the potion.")
-                potion_count += 1
+                pickup_chance = random.randint(1,5)
+                if pickup_chance == 5:
+                    print("You find a potion on the ground.")
+                    print("You pick up the potion.")
+                    potion_count += 1
                 dungeon[px][py] = 0 
             elif ptile == 3:
-                print("You move west one tile.")
+                print("You move west one tile.") 
+                # pickup_chance = random.randint(1,10)
+                # if pickup_chance == 10:
                 print("You find a bomb on the ground.")
                 print("You pick up the bomb.")
                 b_count += 1
@@ -167,7 +176,7 @@ while True:
     
     # North
 
-    elif direction == "n":
+    elif direction == "w":
         py += 1
         if py >= 3:
             print("You try to move north, but run into the dungeon boundary.")
@@ -182,7 +191,7 @@ while True:
                 if b_count == 0:
                     print("You don't have any bombs!")
                 else:
-                    b_choice = input("> ")
+                    b_choice = getch.getch()
                     print(c.clear)
                     if b_choice == "1":
                         b_count -= 1
@@ -192,15 +201,19 @@ while True:
                 ptile = dungeon[px][py] 
             elif ptile == 3:
                 print("You move north one tile.")
+                # pickup_chance = random.randint(1,10)
+                # if pickup_chance == 10:
                 print("You find a bomb on the ground.")
                 print("You pick up the bomb.")
                 b_count += 1
                 dungeon[px][py] = 0
             elif ptile == 2:
-                print("You move north one tile.")
-                print("You find a potion on the ground.")
-                print("You pick up the potion.")
-                potion_count += 1
+                print("You move north one tile.") 
+                pickup_chance = random.randint(1,5)
+                if pickup_chance == 5:
+                    print("You find a potion on the ground.")
+                    print("You pick up the potion.")
+                    potion_count += 1
                 dungeon[px][py] = 0
             else:
                 print("You move north one tile.")
@@ -222,7 +235,7 @@ while True:
                 if b_count == 0:
                     print("You don't have any bombs!")
                 else:
-                    b_choice = input("> ")
+                    b_choice = getch.getch()
                     print(c.clear)
                     if b_choice == "1":
                         b_count -= 1
@@ -232,12 +245,16 @@ while True:
                 ptile = dungeon[px][py]
             elif ptile == 2:
                 print("You move south one tile.")
-                print("You find a potion on the ground.")
-                print("You pick up the potion.")
-                potion_count += 1
+                pickup_chance = random.randint(1,5)
+                if pickup_chance == 5:
+                    print("You find a potion on the ground.")
+                    print("You pick up the potion.")
+                    potion_count += 1
                 dungeon[px][py] = 0
             elif ptile == 3:
-                print("You move south one tile.")
+                print("You move south one tile.") 
+                # pickup_chance = random.randint(1,10)
+                # if pickup_chance == 10:
                 print("You find a bomb on the ground.")
                 print("You pick up the bomb.")
                 b_count += 1
@@ -275,12 +292,12 @@ while True:
             print("Health: " + str(p_health))
             print("Offense: " + str(p_offense))
             print("Defense: " + str(p_defense))
-            print("Potion count: " + str(potion_count))
+            print("Potions: " + str(potion_count))
             print("What will you do?")
             print("1: Fight")
             print("2: Potion")
             print("3: Run")
-            command = input("> ")
+            command = getch.getch()
             print(c.clear)
                     
             # Fight
@@ -304,7 +321,7 @@ while True:
                         e_health = 20
                         break
                 
-                hit_chance = random.randint(0,10)
+                hit_chance = random.randint(1,10)
                 if hit_chance == 10:
                     print("The Slime missed!")
                 else:
