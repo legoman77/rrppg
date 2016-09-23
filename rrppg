@@ -323,6 +323,10 @@ while True:
                         if b_chance == 10:
                             b_count += 1
                             print("The Slime dropped a bomb!")
+                        p_chance = random.randint(1,10)
+                        if p_chance == 10:
+                            potion_count += 1
+                            print("The Slime dropped a potion!")
                         e_health = 20
                         break
                 
@@ -346,9 +350,37 @@ while True:
             print("2: Heal")
             spell = getch.getch()
             if spell == 1:
-                
-            elif spell == 2:
+                p_magic -= 5
+                p_damage = 20
+                e_health -= p_damage
+                print("You attack the Slime!")
+                print("The Slime takes " + str(p_damage) + " damage!")
+                if e_health <= 0:
+                    print("The Slime was defeated!")
+                    print("You won the battle!")
+                    b_chance = random.randint(1,10)
+                    if b_chance == 10:
+                        b_count += 1
+                        print("The Slime dropped a bomb!")
+                    p_chance = random.randint(1,10)
+                    if p_chance == 10:
+                        potion_count += 1
+                        print("The Slime dropped a potion!")
+                    e_health = 20
+                hit_chance = random.randint(1,10)
+                if hit_chance == 10:
+                    print("The Slime missed!")
+                else:
+                    e_damage = e_offense - p_defense
+                    p_health -= e_damage
+                    print("The Slime attacks you!")
+                    print("You take " + str(e_damage) + " damage!")
+                    if p_health <= 0:
+                        print("You died!")
+                        print("GAME OVER")
 
+            elif spell == 2:
+                
 
             # Potion
             
