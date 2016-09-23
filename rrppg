@@ -299,8 +299,9 @@ while True:
             print("Potions: " + str(potion_count))
             print("What will you do?")
             print("1: Fight")
-            print("2: Potion")
-            print("3: Run")
+            print("2: Magic")
+            print("3: Potion")
+            print("4: Run")
             command = getch.getch()
             print(c.clear)
                     
@@ -338,9 +339,20 @@ while True:
                         print("GAME OVER")
                         break
             
+            # Magic
+
+            print("Which spell do you want to use?")
+            print("1: Fire")
+            print("2: Heal")
+            spell = getch.getch()
+            if spell == 1:
+                
+            elif spell == 2:
+
+
             # Potion
             
-            elif command == "2":
+            elif command == "3":
                 if potion_count > 0:
                     if p_health >= 100:
                         print("It won't have any effect.")
@@ -364,7 +376,7 @@ while True:
 
             # Run
     
-            elif command == "3":
+            elif command == "4":
                 run_chance = random.randrange(0,2)
                 if run_chance == 0:
                     print("Escaped!")
