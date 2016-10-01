@@ -12,11 +12,17 @@ p_offense = 15
 p_defense = 0
     
 # Enemies' stats
-    
-e_health = 20
-e_magic = 0
-e_offense = 10
-e_defense = 5
+
+def enemy():
+    e_chance = random.randint(1,2)
+    if e_chance = 1:
+        e_name = "Slime" 
+        e_health = 20
+        e_magic = 0
+        e_offense = 10
+        e_defense = 5
+    elif e_chance = 2:
+        e_name = "Goblin"
 
 # Items
 
