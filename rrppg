@@ -361,7 +361,7 @@ while True:
                             p_magic -= 5
                             p_damage = 20
                             e_health -= p_damage
-                            print("You attack the Slime!")
+                            print("You use Fire!")
                             print("The Slime takes " + str(p_damage) + " damage!")
                             if e_health <= 0:
                                 print("The Slime was defeated!")
@@ -375,30 +375,7 @@ while True:
                                     potion_count += 1
                                     print("The Slime dropped a potion!")
                                 break
-                            hit_chance = random.randint(1,10)
-                            if hit_chance == 10:
-                                print("The Slime missed!")
                             else:
-                                e_damage = e_offense - p_defense
-                                p_health -= e_damage
-                                print("The Slime attacks you!")
-                                print("You take " + str(e_damage) + " damage!")
-                                if p_health <= 0:
-                                    print("You died!")
-                                    print("GAME OVER")
-                                    break
-                    elif spell == "2":     
-                        if p_magic < 5:
-                            print(c.clear)
-                            print("You don't have enough magic!")
-                            break
-                        else:
-                            if p_health >= 100:
-                                print("It won't have any effect.")
-                                break
-                            else:
-                                p_magic -= 1
-                                p_health += 20
                                 hit_chance = random.randint(1,10)
                                 if hit_chance == 10:
                                     print("The Slime missed!")
@@ -411,6 +388,34 @@ while True:
                                         print("You died!")
                                         print("GAME OVER")
                                         break
+                    elif spell == "2":     
+                        print(c.clear)
+                        if p_magic < 1:
+                            print("You don't have enough magic!")
+                            break
+                        else:
+                            if p_health >= 100:
+                                print("It won't have any effect.")
+                                break
+                            else:
+                                p_magic -= 1
+                                p_health += 20
+                                if p_health > 100:
+                                    p_health = 100
+                                print("You use Heal!")
+                                print("20 HP restored!")
+                                hit_chance = random.randint(1,10)
+                                if hit_chance == 10:
+                                    print("The Slime missed!")
+                                else:
+                                    e_damage = e_offense - p_defense
+                                    p_health -= e_damage
+                                    print("The Slime attacks you!")
+                                    print("You take " + str(e_damage) + " damage!")
+                                    if p_health <= 0:
+                                        print("You died!")
+                                        print("GAME OVER")
+                                    break
                     else:
                         print(c.clear)
                         print("That is not a valid command.")
