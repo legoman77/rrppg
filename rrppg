@@ -6,23 +6,12 @@ import getch
 
 # Player's stats
 
+p_level = 1
+p_exp = 0
 p_health = 100
 p_magic = 10
 p_offense = 15
 p_defense = 0
-    
-# Enemies' stats
-
-def enemy():
-    e_chance = random.randint(1,2)
-    if e_chance = 1:
-        e_name = "Slime" 
-        e_health = 20
-        e_magic = 0
-        e_offense = 10
-        e_defense = 5
-    elif e_chance = 2:
-        e_name = "Goblin"
 
 # Items
 
@@ -87,6 +76,8 @@ while True:
     print("In which direction would you like to move?  (Use WASD).")
     print("Or, press p to use a potion.")
     print("Your stats: ")
+    print("Level " + str(p_level))
+    print("Experience points: " + str(p_exp))
     print("Health: " + str(p_health))
     print("Magic : " + str(p_magic))
     print("Offense: " + str(p_offense))
@@ -113,7 +104,7 @@ while True:
                 if b_count == 0:
                     print("You don't have any bombs!")
                 else:
-                    b_choice = input("> ")
+                    b_choice = getch.getch()
                     print(c.clear)
                     if b_choice == "1":
                         b_count -= 1
@@ -295,9 +286,26 @@ while True:
     # Battle
     
     battle_chance = random.randrange(0,11)
-    if battle_chance == 10:
-        print("You encounter a Slime!")
+    if battle_chance == 10:    
+        e_chance = random.randint(1,2)
+        if e_chance == 1:
+            e_name = "Slime" 
+            e_health = 20
+            e_magic = 0
+            e_offense = 10
+            e_defense = 5
+            e_exp = 10
+        elif e_chance == 2:
+            e_name = "Goblin"
+            e_health = 30
+            e_magic = 0
+            e_offense = 5
+            e_defense = 5
+            e_exp = 20
+        print("You encounter a " +  e_name + "!")
         while True:
+            print("Level " + str(p_level))
+            print("Experience points: " + str(p_exp))
             print("Health: " + str(p_health))
             print("Magic: " + str(p_magic))
             print("Offense: " + str(p_offense))
@@ -320,29 +328,42 @@ while True:
                 else:
                     p_damage = p_offense - e_defense
                     e_health -= p_damage
-                    print("You attack the Slime!")
-                    print("The Slime takes " + str(p_damage) + " damage!")
+                    print("You attack the " + e_name + "!")
+                    print("The " + e_name + " takes " + str(p_damage) + " damage!")
                     if e_health <= 0:
-                        print("The Slime dies!")
+                        print("The " + e_name + " dies!")
                         print("You win the battle!")
+                        p_exp += e_exp
+                        if p_exp >= 100:
+                            p_exp = 0
+                            p_level += 1
+                            print("You grew to Level " + str(p_level) + "!")
+                            p_offchance = random.randint(1,2)
+                            if p_offchance == 2:
+                                p_offense += 1
+                                print("Offense increased by 1!")
+                            p_defchance = random.randint(1,4)
+                            if p_defchance == 4:
+                                p_defense += 1
+                                print("Defense increased by 1!")
                         b_chance = random.randint(1,10)
                         if b_chance == 10:
                             b_count += 1
-                            print("The Slime drops a bomb!")
+                            print("The " + e_name + " drops a bomb!")
                         p_chance = random.randint(1,10)
                         if p_chance == 10:
                             potion_count += 1
-                            print("The Slime drops a potion!")
+                            print("The " + e_name + " drops a potion!")
                         e_health = 20
                         break
                 
                 hit_chance = random.randint(1,10)
                 if hit_chance == 10:
-                    print("The Slime misses!")
+                    print("The " + e_name + " misses!")
                 else:
                     e_damage = e_offense - p_defense
                     p_health -= e_damage
-                    print("The Slime attacks you!")
+                    print("The " + e_name + " attacks you!")
                     print("You take " + str(e_damage) + " damage!")
                     if p_health <= 0:
                         print("You die...")
@@ -368,27 +389,40 @@ while True:
                             p_damage = 20
                             e_health -= p_damage
                             print("You use Fire!")
-                            print("The Slime takes " + str(p_damage) + " damage!")
+                            print("The " + e_name + " takes " + str(p_damage) + " damage!")
                             if e_health <= 0:
-                                print("The Slime was defeated!")
+                                print("The " + e_name + " was defeated!")
                                 print("You won the battle!")
-                                b_chance = random.randint(1,10)
+                                b_chance = random.randint(1,10)       
+                                p_exp += e_exp
+                                if p_exp >= 100:
+                                    p_exp = 0
+                                    p_level += 1
+                                    print("You grew to Level " + str(p_level) + "!")
+                                    p_offchance = random.randint(1,2)
+                                    if p_offchance == 2:
+                                        p_offense += 1
+                                        print("Offense increased by 1!")
+                                    p_defchance = random.randint(1,4)
+                                    if p_defchance == 4:
+                                        p_defense += 1
+                                        print("Defense increased by 1!")
                                 if b_chance == 10:
                                     b_count += 1
-                                    print("The Slime dropped a bomb!")
+                                    print("The " + e_name + " dropped a bomb!")
                                 p_chance = random.randint(1,10)
                                 if p_chance == 10:
                                     potion_count += 1
-                                    print("The Slime dropped a potion!")
+                                    print("The " + e_name + " dropped a potion!")
                                 break
                             else:
                                 hit_chance = random.randint(1,10)
                                 if hit_chance == 10:
-                                    print("The Slime missed!")
+                                    print("The " + e_name + " missed!")
                                 else:
                                     e_damage = e_offense - p_defense
                                     p_health -= e_damage
-                                    print("The Slime attacks you!")
+                                    print("The " + e_name + " attacks you!")
                                     print("You take " + str(e_damage) + " damage!")
                                     if p_health <= 0:
                                         print("You died!")
@@ -412,11 +446,11 @@ while True:
                                 print("20 HP restored!")
                                 hit_chance = random.randint(1,10)
                                 if hit_chance == 10:
-                                    print("The Slime missed!")
+                                    print("The " + e_name + " missed!")
                                 else:
                                     e_damage = e_offense - p_defense
                                     p_health -= e_damage
-                                    print("The Slime attacks you!")
+                                    print("The " + e_name + " attacks you!")
                                     print("You take " + str(e_damage) + " damage!")
                                     if p_health <= 0:
                                         print("You died!")
@@ -444,11 +478,11 @@ while True:
                         print("20 HP restored!")                
                         hit_chance = random.randint(1,10)
                         if hit_chance == 10:
-                            print("The Slime missed!")
+                            print("The " + e_name + " missed!")
                         else:
                             e_damage = e_offense - p_defense
                             p_health -= e_damage
-                            print("The Slime attacks you!")
+                            print("The " + e_name + " attacks you!")
                             print("You take " + str(e_damage) + " damage!")
                             if p_health <= 0:
                                 print("You died!")
@@ -465,15 +499,18 @@ while True:
                     print("Escaped!")
                     break
                 else:
-                    print("Couldn't escape!")
-                    e_damage = e_offense - p_defense
-                    p_health -= e_damage
-                    print("The Slime attacks you!")
-                    print("You take " + str(e_damage) + " damage!")
-                    if p_health <= 0:
-                        print("You died!")
-                        print("GAME OVER")
-                        break
+                    hit_chance = random.randint(1,10)
+                    if hit_chance == 10:
+                        print("The " + e_name + " missed!")
+                    else:
+                        e_damage = e_offense - p_defense
+                        p_health -= e_damage
+                        print("The " + e_name + " attacks you!")
+                        print("You take " + str(e_damage) + " damage!")
+                        if p_health <= 0:
+                            print("You died!")
+                            print("GAME OVER")
+                            break
                 
             # Invalid command
     
