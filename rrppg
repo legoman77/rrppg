@@ -73,10 +73,12 @@ while True:
 
     # Choosing a direction
     
-    print("In which direction would you like to move?  (Use WASD).")
-    print("Or, press p to use a potion.")
+    print("What would you like to do?")
+    print("Use WASD to move.")
+    print("Press p to use a potion.")
+    print("Press h to heal yourself with magic.")
     print("Your stats: ")
-    print("Level " + str(p_level))
+    print("Level: " + str(p_level))
     print("Experience points: " + str(p_exp))
     print("Health: " + str(p_health))
     print("Magic : " + str(p_magic))
@@ -278,6 +280,23 @@ while True:
         else:
             print("You don't have any potions.")
 
+    # Using Heal
+
+    elif direction == "h":
+        print(c.clear)
+        if p_magic < 1:
+            print("You don't have enough magic!")
+        else:
+            if p_health >= 100:
+                print("It won't have any effect.")
+            else:
+                p_magic -= 1
+                p_health += 20
+                if p_health > 100:
+                    p_health = 100
+                print("You use Heal!")
+                print("20 HP restored!")
+    
     # Invalid command
 
     else:
@@ -304,7 +323,7 @@ while True:
             e_exp = 20
         print("You encounter a " +  e_name + "!")
         while True:
-            print("Level " + str(p_level))
+            print("Level: " + str(p_level))
             print("Experience points: " + str(p_exp))
             print("Health: " + str(p_health))
             print("Magic: " + str(p_magic))
