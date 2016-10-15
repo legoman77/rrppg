@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import colors as c
+import skilstak.colors as c
 import random
 import battle
 import getch
@@ -306,7 +306,7 @@ while True:
     
     battle_chance = random.randrange(0,11)
     if battle_chance == 10:    
-        e_chance = random.randint(1,3)
+        e_chance = random.randint(1,5)
         if e_chance == 1:
             e_name = "Slime"
             e_health = 20
@@ -328,8 +328,24 @@ while True:
             e_offense = 5
             e_defense = 0
             e_exp = 10
+        elif e_chance == 4:
+            e_name = "Ogre"
+            e_health = 50
+            e_magic = 0
+            e_offense = 30
+            e_defense = 10
+            e_exp = 50
+        elif e_chance == 5:
+            e_name = "Sorcerer"
+            e_health = 60
+            e_magic = 20
+            e_offense = 10
+            e_defense = 0
+            e_exp = 50
         print("You encounter a " +  e_name + "!")
         while True:
+            print("")
+            print("Your Stats")
             print("Level: " + str(p_level))
             print("Experience points: " + str(p_exp))
             print("Health: " + str(p_health))
@@ -337,6 +353,13 @@ while True:
             print("Offense: " + str(p_offense))
             print("Defense: " + str(p_defense))
             print("Potions: " + str(potion_count))
+            print("")
+            print("Enemy's Stats")
+            print("Health: " + str(e_health))
+            print("Magic: " + str(e_magic))
+            print("Offense: " + str(e_offense))
+            print("Defense: " + str(e_defense))
+            print("")
             print("What will you do?")
             print("1: Fight")
             print("2: Spell")
@@ -393,12 +416,11 @@ while True:
                             p_health -= e_damage
                             print("The " + e_name + " attacks you!")
                             print("You take " + str(e_damage) + " damage!")
-                        if p_health <= 0:
-                            print("You die...")
-                            print("GAME OVER")
-                            break
+                            if p_health <= 0:
+                                print("You die...")
+                                print("GAME OVER")
+                                break
                     else:
-                        print(c.clear)
                         e_magic -= 5
                         e_damage = 20
                         p_health -= e_damage
@@ -511,10 +533,8 @@ while True:
                     else:
                         print(c.clear)
                         print("That is not a valid command.")
-                if e_health <= 0:
-                    e_health = 20
                     break
-
+            
             # Potion
             
             elif command == "3":
@@ -548,9 +568,10 @@ while True:
             elif command == "4":
                 run_chance = random.randrange(0,2)
                 if run_chance == 0:
-                    print("Escaped!")
+                    print("You escape!")
                     break
                 else:
+                    print("You fail to escape!")
                     hit_chance = random.randint(1,10)
                     if hit_chance == 10:
                         print("The " + e_name + " missed!")
