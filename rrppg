@@ -130,6 +130,16 @@ while True:
                 print("You pick up the bomb.")
                 b_count += 1
                 dungeon[px][py] = 0
+            elif ptile == 4:
+                print("You step on a magical tile.")
+                print("Offense increased by 1!")
+                p_offense += 1
+                dungeon[px][py] = 0 
+            elif ptile == 5:
+                print("You step on a mystical tile.")
+                print("Defense increased by 1!")
+                p_defense += 1
+                dungeon[px][py] = 0
             else:
                 print("You move east one tile.")
     
@@ -174,6 +184,16 @@ while True:
                 print("You pick up the bomb.")
                 b_count += 1
                 dungeon[px][py] = 0
+            elif ptile == 4:
+                print("You step on a magical tile.")
+                print("Offense increased by 1!")
+                p_offense += 1
+                dungeon[px][py] = 0 
+            elif ptile == 5:
+                print("You step on a mystical tile.")
+                print("Defense increased by 1!")
+                p_defense += 1
+                dungeon[px][py] = 0
             else:
                 print("You move west one tile.")
     
@@ -217,6 +237,16 @@ while True:
                     print("You find a potion on the ground.")
                     print("You pick up the potion.")
                     potion_count += 1
+                dungeon[px][py] = 0 
+            elif ptile == 4:
+                print("You step on a magical tile.")
+                print("Offense increased by 1!")
+                p_offense += 1
+                dungeon[px][py] = 0 
+            elif ptile == 5:
+                print("You step on a mystical tile.")
+                print("Defense increased by 1!")
+                p_defense += 1
                 dungeon[px][py] = 0
             else:
                 print("You move north one tile.")
@@ -261,6 +291,16 @@ while True:
                 print("You find a bomb on the ground.")
                 print("You pick up the bomb.")
                 b_count += 1
+                dungeon[px][py] = 0
+            elif ptile == 4:
+                print("You step on a magical tile.")
+                print("Offense increased by 1!")
+                p_offense += 1
+                dungeon[px][py] = 0 
+            elif ptile == 5:
+                print("You step on a mystical tile.")
+                print("Defense increased by 1!")
+                p_defense += 1
                 dungeon[px][py] = 0
             else:
                 print("You move south one tile.")
@@ -380,6 +420,8 @@ while True:
                     print("You miss!")
                 else:
                     p_damage = p_offense - e_defense
+                    if p_damage < 0:
+                        p_damage = 0
                     e_health -= p_damage
                     print("You attack the " + e_name + "!")
                     print("The " + e_name + " takes " + str(p_damage) + " damage!")
@@ -417,6 +459,8 @@ while True:
                             print("The " + e_name + " misses!")
                         else:
                             e_damage = e_offense - p_defense
+                            if e_damage < 0:
+                                e_damage = 0
                             p_health -= e_damage
                             print("The " + e_name + " attacks you!")
                             print("You take " + str(e_damage) + " damage!")
@@ -440,6 +484,8 @@ while True:
                         print("The " + e_name + " misses!")
                     else:
                         e_damage = e_offense - p_defense
+                        if e_damage < 0:
+                            e_damage = 0
                         p_health -= e_damage
                         print("The " + e_name + " attacks you!")
                         print("You take " + str(e_damage) + " damage!")
@@ -503,6 +549,8 @@ while True:
                                             print("The " + e_name + " misses!")
                                         else:
                                             e_damage = e_offense - p_defense
+                                            if e_damage < 0:
+                                                e_damage = 0
                                             p_health -= e_damage
                                             print("The " + e_name + " attacks you!")
                                             print("You take " + str(e_damage) + " damage!")
@@ -526,6 +574,8 @@ while True:
                                         print("The " + e_name + " misses!")
                                     else:
                                         e_damage = e_offense - p_defense
+                                        if e_damage < 0:
+                                            e_damage = 0
                                         p_health -= e_damage
                                         print("The " + e_name + " attacks you!")
                                         print("You take " + str(e_damage) + " damage!")
@@ -548,19 +598,49 @@ while True:
                                 if p_health > 100:
                                     p_health = 100
                                 print("You use Heal!")
-                                print("20 HP restored!")
-                                hit_chance = random.randint(1,10)
-                                if hit_chance == 10:
-                                    print("The " + e_name + " missed!")
-                                else:
-                                    e_damage = e_offense - p_defense
-                                    p_health -= e_damage
-                                    print("The " + e_name + " attacks you!")
-                                    print("You take " + str(e_damage) + " damage!")
-                                    if p_health <= 0:
-                                        print("You died!")
-                                        print("GAME OVER")
-                                    break
+                                print("20 HP restored!")    
+                                if e_magic >= 5:
+                                    e_attack = random.randint(1,2)
+                                    if e_attack == 1:
+                                        hit_chance = random.randint(1,10)
+                                        if hit_chance == 10:
+                                            print("The " + e_name + " misses!")
+                                        else:
+                                            e_damage = e_offense - p_defense
+                                            if e_damage < 0:
+                                                e_damage = 0
+                                            p_health -= e_damage
+                                            print("The " + e_name + " attacks you!")
+                                            print("You take " + str(e_damage) + " damage!")
+                                            if p_health <= 0:
+                                                print("You die...")
+                                                print("GAME OVER")
+                                                break
+                                    else:
+                                        e_magic -= 5
+                                        e_damage = 20
+                                        p_health -= e_damage
+                                        print("The " + e_name + " uses Fire!")
+                                        print("You take " + str(e_damage) + " damage!") 
+                                        if p_health <= 0:
+                                            print("You die...")
+                                            print("GAME OVER")
+                                            break
+                                else:  
+                                    hit_chance = random.randint(1,10)
+                                    if hit_chance == 10:
+                                        print("The " + e_name + " misses!")
+                                    else:
+                                        e_damage = e_offense - p_defense
+                                        if e_damage < 0:
+                                            e_damage = 0
+                                        p_health -= e_damage
+                                        print("The " + e_name + " attacks you!")
+                                        print("You take " + str(e_damage) + " damage!")
+                                        if p_health <= 0:
+                                            print("You die...")
+                                            print("GAME OVER")
+                                            break
                     else:
                         print(c.clear)
                         print("That is not a valid command.")
@@ -578,19 +658,49 @@ while True:
                         if p_health > 100:
                             p_health = 100
                         print("You drink the potion.")
-                        print("20 HP restored!")                
-                        hit_chance = random.randint(1,10)
-                        if hit_chance == 10:
-                            print("The " + e_name + " missed!")
-                        else:
-                            e_damage = e_offense - p_defense
-                            p_health -= e_damage
-                            print("The " + e_name + " attacks you!")
-                            print("You take " + str(e_damage) + " damage!")
-                            if p_health <= 0:
-                                print("You died!")
-                                print("GAME OVER")
-                                break
+                        print("20 HP restored!")                 
+                        if e_magic >= 5:
+                            e_attack = random.randint(1,2)
+                            if e_attack == 1:
+                                hit_chance = random.randint(1,10)
+                                if hit_chance == 10:
+                                    print("The " + e_name + " misses!")
+                                else:
+                                    e_damage = e_offense - p_defense
+                                    if e_damage < 0:
+                                        e_damage = 0
+                                    p_health -= e_damage
+                                    print("The " + e_name + " attacks you!")
+                                    print("You take " + str(e_damage) + " damage!")
+                                    if p_health <= 0:
+                                        print("You die...")
+                                        print("GAME OVER")
+                                        break
+                            else:
+                                e_magic -= 5
+                                e_damage = 20
+                                p_health -= e_damage
+                                print("The " + e_name + " uses Fire!")
+                                print("You take " + str(e_damage) + " damage!") 
+                                if p_health <= 0:
+                                    print("You die...")
+                                    print("GAME OVER")
+                                    break
+                        else:  
+                            hit_chance = random.randint(1,10)
+                            if hit_chance == 10:
+                                print("The " + e_name + " misses!")
+                            else:
+                                e_damage = e_offense - p_defense
+                                if e_damage < 0:
+                                    e_damage = 0
+                                p_health -= e_damage
+                                print("The " + e_name + " attacks you!")
+                                print("You take " + str(e_damage) + " damage!")
+                                if p_health <= 0:
+                                    print("You die...")
+                                    print("GAME OVER")
+                                    break
                 else:
                     print("You don't have any potions.")
 
@@ -603,18 +713,48 @@ while True:
                     break
                 else:
                     print("You fail to escape!")
-                    hit_chance = random.randint(1,10)
-                    if hit_chance == 10:
-                        print("The " + e_name + " missed!")
-                    else:
-                        e_damage = e_offense - p_defense
-                        p_health -= e_damage
-                        print("The " + e_name + " attacks you!")
-                        print("You take " + str(e_damage) + " damage!")
-                        if p_health <= 0:
-                            print("You died!")
-                            print("GAME OVER")
-                            break
+                    if e_magic >= 5:
+                        e_attack = random.randint(1,2)
+                        if e_attack == 1:
+                            hit_chance = random.randint(1,10)
+                            if hit_chance == 10:
+                                print("The " + e_name + " misses!")
+                            else:
+                                e_damage = e_offense - p_defense
+                                if e_damage < 0:
+                                    e_damage = 0
+                                p_health -= e_damage
+                                print("The " + e_name + " attacks you!")
+                                print("You take " + str(e_damage) + " damage!")
+                                if p_health <= 0:
+                                    print("You die...")
+                                    print("GAME OVER")
+                                    break
+                        else:
+                            e_magic -= 5
+                            e_damage = 20
+                            p_health -= e_damage
+                            print("The " + e_name + " uses Fire!")
+                            print("You take " + str(e_damage) + " damage!") 
+                            if p_health <= 0:
+                                print("You die...")
+                                print("GAME OVER")
+                                break
+                    else:  
+                        hit_chance = random.randint(1,10)
+                        if hit_chance == 10:
+                            print("The " + e_name + " misses!")
+                        else:
+                            e_damage = e_offense - p_defense
+                            if e_damage < 0:
+                                e_damage = 0
+                            p_health -= e_damage
+                            print("The " + e_name + " attacks you!")
+                            print("You take " + str(e_damage) + " damage!")
+                            if p_health <= 0:
+                                print("You die...")
+                                print("GAME OVER")
+                                break
                 
             # Invalid command
     
